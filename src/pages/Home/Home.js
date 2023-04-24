@@ -7,7 +7,7 @@ import { Button, Paper } from '@mui/material';
 import axios from 'axios';
 
 export const Home = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   useEffect(() => {
     const consultaAPI = async () => {
       await axios({
