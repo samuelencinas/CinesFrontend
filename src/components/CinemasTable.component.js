@@ -1,8 +1,10 @@
 import {Box, Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper, IconButton} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import axios from 'axios';
 import { useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import * as React from 'react';
 
 export const Row = row => {
@@ -37,7 +39,9 @@ export const Row = row => {
                       <TableRow>
                         <TableCell>Título</TableCell>
                         <TableCell>Reparto</TableCell>
-                        <TableCell align="right">Próxima sesión</TableCell>
+                        <TableCell>Próxima sesión</TableCell>
+                        <TableCell align="right">Comprar</TableCell>
+
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -48,6 +52,9 @@ export const Row = row => {
                           </TableCell>
                           <TableCell>{catalog.actors}</TableCell>
                           <TableCell align="right">{`${catalog.sessions[0].date} | ${catalog.sessions[0].start} - ${catalog.sessions[0].end}`}</TableCell>
+                          <TableCell><IconButton color="primary" aria-label="upload picture" component="label">
+  <ShoppingCartIcon/>
+</IconButton></TableCell>
                         </TableRow>
                       )) : <h1>{'row=' +JSON.stringify(row)}</h1>}
                     </TableBody>
