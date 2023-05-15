@@ -37,6 +37,7 @@ export const LoginDialog = () => {
         axios({
             url: 'http://localhost:8080/login',
             method: 'POST',
+            withCredentials: true,
             data: {
                 username: username,
                 password: password,
@@ -49,7 +50,7 @@ export const LoginDialog = () => {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button onClick={handleClickOpen}>
         Iniciar sesión
       </Button>
       <Dialog open={open} onClose={handleClose}>

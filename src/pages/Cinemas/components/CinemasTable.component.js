@@ -51,8 +51,8 @@ export const Row = row => {
                             {catalog.name}
                           </TableCell>
                           <TableCell>{catalog.actors}</TableCell>
-                          <TableCell align="right">{`${catalog.sessions[0].date} | ${catalog.sessions[0].start} - ${catalog.sessions[0].end}`}</TableCell>
-                          <TableCell><IconButton color="primary" aria-label="upload picture" component="label">
+                          <TableCell>{`${catalog.sessions[0].date} | ${catalog.sessions[0].start} - ${catalog.sessions[0].end}`}</TableCell>
+                          <TableCell align="right"><IconButton color="primary" aria-label="upload picture" component="label">
   <ShoppingCartIcon/>
 </IconButton></TableCell>
                         </TableRow>

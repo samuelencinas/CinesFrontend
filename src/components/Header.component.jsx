@@ -1,17 +1,42 @@
-import * as React from 'react';
+import {React, useState, useEffect} from 'react';
+import axios from 'axios';
 import {AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem} from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 
 export const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [userData, setUserData] = useState(null);
 
-  const pages = ['Cines', 'Películas'];
-  const settings = ['Cerrar sesión'];
+  useEffect(() => {
+    axios({
+        url: 'http://localhost:8080/user',
+        method: 'GET',
+        withCredentials: true,
+    })
+    .then(res => {
+      setUserData(res.data)
+    })
+    .catch(err => console.log(err))
+}, []);
 
+  // Literales de página
+  const pages = !!userData ? [{
+    title: 'Cines',
+    path: '/cines'
+  }, {
+    title: 'Películas',
+    path: '/peliculas'
+  }] : [{
+    title: 'Iniciar sesión',
+  }, {
+    title: 'Registrarse'
+  }]
+  const settings = !!userData ? ['Cerrar sesión'] : [];
 
-  const handleOpenNavMenu = event => setAnchorElNav(event.currentºTarget);
+  // Responsive
+  const handleOpenNavMenu = event => setAnchorElNav(event.currentTarget);
   const handleOpenUserMenu = event => setAnchorElUser(event.currentTarget);
   const handleCloseNavMenu = () => setAnchorElNav(null);
   const handleCloseUserMenu = () => setAnchorElUser(null);
@@ -69,12 +94,14 @@ export const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+          
+
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -97,17 +124,18 @@ export const Header = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.title}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                href={page.path}
               >
-                {page}
+                {page.title}
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+          {!!userData &&           <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Ajustes">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
@@ -134,7 +162,7 @@ export const Header = () => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box>}
         </Toolbar>
       </Container>
     </AppBar>
