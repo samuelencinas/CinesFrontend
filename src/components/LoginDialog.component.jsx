@@ -16,6 +16,7 @@ export const LoginDialog = () => {
   const [password, setPassword] = useState("");
   const [userError, setUserError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  
   const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,7 +44,10 @@ export const LoginDialog = () => {
                 password: password,
             }
         }).then(response => {
-            if (response.data.status === 'OK') navigate('/cinemas');
+            if (!!response.data) {
+              navigate('/cines');
+              navigate(0); // <-- Forzamos que se actualice la página, actualizándose la cabecera
+            }
         })
     }
   }

@@ -7,7 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState();
 
   useEffect(() => {
     axios({
@@ -134,7 +134,7 @@ export const Header = () => {
             ))}
           </Box>
 
-          {!!userData &&           <Box sx={{ flexGrow: 0 }}>
+          {!!userData && <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Ajustes">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />

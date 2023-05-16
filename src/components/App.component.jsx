@@ -31,8 +31,12 @@ const App = () => {
             <Routes>
                 <Route exact path="/" element={<LandingPage />} />
                 <Route path="/cines" element={<CinemasPage />} />
+
             </Routes>
         </Router>
     </ThemeProvider>);
 }
 export default App;
+
+//                <Route path="/peliculas" element={<MoviesPage/>} />
+//<Route path='/compraEntrada/:id' element={<PaymentWindow/>}/>
